@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "==2.2.7"
+django = "==2.2.10"
 certifi = "==2019.11.28"
 chardet = "==3.0.4"
 django-countries = "==5.5"
