@@ -1,0 +1,111 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Payments</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% load static %}
+    {% load mathfilters %}
+    {% block content %}
+        <!--cart-checkout-area start -->
+        <div class="cart-checkout-area  pt-30">
+            <div class="container">
+                <div class="row">
+                    <div class="product-area">
+                        <div class="title-tab-product-category">
+                            <div class="col-md-12 text-center pb-60">
+                                <ul class="nav heading-style-3" role="tablist">
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'mycart' %}" style="width:250px;"><span>01</span> Shopping cart</a></li>
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'checkout' %}" style="width:250px;"><span>02</span>Checkout</a></li>
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'order-item' %}" aria-controls="complete-order" role="tab" data-toggle="tab" style="width:250px;"><span>03</span> complete-order</a></li>
+                                    <li role="presentation" class="active shadow-box"><a style="width:250px;"><span>04</span>Payments</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12">
+                            <div class="content-tab-product-category pb-70">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane  fade in active" id="complete-order">
+                                    <div class="row">
+                                      <div class="col-xs-12" >
+                                          <div class="coupne-customer-area mb50">
+                                              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingTwo">
+                                                          {% if user.is_authenticated %}
+                                                          <h4 class="panel-title">
+                                                          <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
+                                                           LOGIN
+                                                          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                               {{user.username}}
+                                                          </a>
+                                                          </h4>
+                                                          {% endif %}
+                                                      </div>
+                                                  </div>
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingTwo">
+                                                          <h4 class="panel-title">
+                                                          <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
+                                                           Delivery Address
+                                                          </h4>
+                                                          {% for objects in delivery_address %}
+                                                          <span>
+                                                              <b style="font-size:13px; background-color:black; color:White;">{{objects.address_type}}</b>
+                                                              &nbsp; <i><strong>{{objects.first_name}} {{objects.last_name}}   &nbsp; {{objects.mobile_no}}</strong></i>
+                                                              <p>{{objects.address}}, {{objects.city}}, {{objects.state}}, {{objects.country}}-<strong>{{objects.zip_code}}</strong></p>
+                                                          </span>
+                                                          {% endfor %}
+                                                      </div>
+                                                  </div>
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingTwo">
+                                                          <h4 class="panel-title">
+                                                          <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
+                                                           Order Summary
+                                                          </h4>
+                                                          {% for items in order_items %}
+                                                          <span>
+                                                              <strong>Item{{forloop.counter}}:</strong>  {{items.product.name}} × <span>{{items.quantity}}</span><br/>
+                                                          </span>
+                                                          {% endfor %}
+                                                      </div>
+                                                  </div>
+                                                  <form action="{% url 'send-payment' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                            data-key="{{ key }}"
+                                                            data-description="Payment Gateway Charge"
+                                                            currency="inr"
+                                                            data-amount="{{total|mul:100}}"
+                                                            data-locale="auto">
+                                                        </script>
+                                                  </form>
+                                              </div>
+                                          </div>
+                                      </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--cart-checkout-area end-->
+    {% endblock content %}
+</body>
+
+</html>

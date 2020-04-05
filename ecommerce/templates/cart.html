@@ -1,0 +1,171 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Cart</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+        <!-- End of header area -->
+        
+        <!--cart-checkout-area start -->
+        <div class="cart-checkout-area  pt-30">
+            <div class="container">
+                <div class="row">
+                    {% if qs %}
+                    <div class="product-area">
+                        <div class="title-tab-product-category">
+                            <div class="col-md-12 text-center pb-60">
+                                <ul class="nav heading-style-3" role="tablist">
+                                    <li role="presentation" class="active shadow-box"><a href="#cart" style="width:250px;" aria-controls="cart" role="tab" data-toggle="tab"><span>01</span> Shopping cart</a></li>
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'checkout' %}" style="width:250px;"><span>02</span>Checkout</a></li>
+                                    <li role="presentation" class="shadow-box"><a style="width:250px;"><span>03</span>Order Summary</a></li>
+                                    <li role="presentation" class="shadow-box"><a style="width:250px;"><span>04</span>Payments</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12">
+                            <div class="content-tab-product-category pb-70">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="cart">
+                                    <!-- cart are start-->
+                                    <div class="cart-page-area">
+                                       <form method="post" action="{% url 'mycart' %}">
+                                                   <div class="table-responsive mb-20">
+                                                    <table class="shop_table-2 cart table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="product-thumbnail ">Image</th>
+                                                                <th class="product-name ">Product Name</th>
+                                                                <th class="product-price ">Unit Price</th>
+                                                                <th class="product-quantity">Quantity</th>
+                                                                <th class="product-subtotal ">Total</th>
+                                                                <th class="product-remove">Remove</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% csrf_token %}
+                                                        {% for cart_objects in qs %}
+                                                            <tr class="cart_item">
+                                                                <td class="item-img">
+                                                                    <a href="#"><img src="{{cart_objects.product.product_image.url}}" alt=""> </a>
+                                                                </td>
+                                                                <td class="item-title"> <a href="#">{{cart_objects.product.name}}</a></td>
+                                                                <td class="item-price">₹{{cart_objects.product.special_price}} </td>
+                                                                <td class="item-qty">
+                                                                    <div class="cart-quantity">
+                                                                        <div class="product-qty">
+                                                                            <div class="cart-quantity">
+                                                                                <div class="cart-plus-minus">
+                                                                                    <div class="dec qtybutton" url="{% url 'mycart'  %}" name="{{cart_objects.product.name}}" >-</div>
+                                                                                    <input value="{{cart_objects.quantity}}" name="{{cart_objects.product.name}}" class="cart-plus-minus-box" type="text">
+                                                                                    <div class="inc qtybutton" id="qtybutton"  url="{% url 'mycart' %}" name="{{cart_objects.product.name}}">+</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="total-price">
+                                                                    <strong>₹{{cart_objects.product.special_price|mul:cart_objects.quantity}}</strong>
+                                                                </td>
+                                                                <td class="remove-item">
+                                                                    <a href="javascript:void(0)"  url="{% url 'remove-cart' slug=cart_objects.product.id %}" class="rmv" >
+                                                                        <i class="fa fa-trash-o"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+                                                    <div class="cart-bottom-area">
+                                                        <div class="row">
+                                                            <div class="col-md-8 col-sm-7 col-xs-12">
+                                                                <div class="update-coupne-area">
+                                                                    <div class="update-continue-btn text-right pb-20">
+                                                                    </div>
+                                                                    <div class="coupn-area">
+                                                                        <div class="catagory-title cat-tit-5 mb-20">
+                                                                            <h3>Coupon</h3>
+                                                                            <p>Enter your coupon code if you have one.</p>
+                                                                        </div>
+                                                                            <div class="input-box input-box-2 mb-20">
+                                                                                <input type="text" placeholder="Coupn" class="info" name="subject">
+                                                                            </div>
+                                                                            <a href="#" class="btn-def btn2">Apply Coupon</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-5 col-xs-12">
+                                                                <div class="cart-total-area">
+                                                                    <div class="catagory-title cat-tit-5 mb-20 text-right">
+                                                                            <h3>Cart Totals</h3>
+                                                                     </div>
+                                                                     <div class="sub-shipping">
+                                                                         <p>Subtotal <span>₹{{sub_total}}</span></p>
+                                                                         <p>Shipping <span>₹{{delivery_charge}}</span></p>
+                                                                     </div>
+                                                                     <div class="process-cart-total">
+                                                                         <p>Total <span>₹{{total}}</span></p>
+                                                                     </div>
+                                                                     <div class="process-checkout-btn text-right">
+                                                                         <a class="btn-def btn2" href="{% url 'checkout' %}">Process To Checkout</a>
+                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                    </div>
+                                    <!-- cart are end-->
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div>
+                        <div>
+                            <span>
+                                <img src="{% static 'images/icons/cart-logo.png' %}" alt="Cart" class="center">
+                            </span>
+                            <span>
+                                <p style="color:red; text-align:center; font-size:20px; "><b>Your Cart is Empty</b></p>
+                            </span>
+                            <div>
+                                <span>
+                                    <p style="text-align:center; font-size:15px;">Add items to it now.</p>
+                                </span>
+                            </div>
+                            <span><p style="text-align:center;"><a href="{% url 'homepage' %}" style="color:blue;" class="btn-def">Shop Now</a></p></span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock content %}
+        <!-- footer area start-->
+        <!-- footer area start-->
+
+
+
+        
+
+</body>
+
+</html>

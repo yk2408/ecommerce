@@ -1,0 +1,172 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Order Summary</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% load static %}
+    {% load mathfilters %}
+    {% block content %}
+        <!--cart-checkout-area start -->
+        <div class="cart-checkout-area  pt-30">
+            <div class="container">
+                <div class="row">
+                    <div class="product-area">
+                        <div class="title-tab-product-category">
+                            <div class="col-md-12 text-center pb-60">
+                                <ul class="nav heading-style-3" role="tablist">
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'mycart' %}" style="width:250px;"><span>01</span> Shopping cart</a></li>
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'checkout' %}" style="width:250px;"><span>02</span>Checkout</a></li>
+                                    <li role="presentation" class="active shadow-box"><a href="#complete-order" aria-controls="complete-order" role="tab" data-toggle="tab" style="width:250px;"><span>03</span> complete-order</a></li>
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'payment' %}" style="width:250px;"><span>04</span>Payments</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12">
+                            <div class="content-tab-product-category pb-70">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane  fade in active" id="complete-order">
+                                    <div class="row">
+                                      <div class="col-xs-12" >
+                                          <div class="coupne-customer-area mb50">
+                                              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingTwo">
+                                                          {% if user.is_authenticated %}
+                                                          <h4 class="panel-title">
+                                                          <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
+                                                           LOGIN
+                                                          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                               {{user.username}}
+                                                          </a>
+                                                          </h4>
+                                                          {% endif %}
+                                                      </div>
+                                                  </div>
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingTwo">
+                                                          <h4 class="panel-title">
+                                                          <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
+                                                           Delivery Address
+                                                          </h4>
+                                                          {% for objects in delivery_address %}
+                                                          <span>
+                                                              <b style="font-size:13px; background-color:black; color:White;">{{objects.address_type}}</b>
+                                                              &nbsp; <i><strong>{{objects.first_name}} {{objects.last_name}}   &nbsp; {{objects.mobile_no}}</strong></i>
+                                                              <p>{{objects.address}}, {{objects.city}}, {{objects.state}}, {{objects.country}}-<strong>{{objects.zip_code}}</strong></p>
+                                                          </span>
+                                                          {% endfor %}
+                                                      </div>
+                                                  </div>
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingThree">
+                                                          <h4 class="panel-title">
+                                                          <img src="{% static 'images/icons/acc.jpg' %}" alt="">
+                                                           Have A Coupon?
+                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                               Click here to enter your code
+                                                            </a>
+                                                          </h4>
+                                                      </div>
+                                                      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                          <div class="panel-body coupon-body">
+                                                            <div class="first-last-area">
+                                                                <div class="input-box mtb-20">
+                                                                    <input type="text" placeholder="Coupon Code" class="info" name="code">
+                                                                </div>
+                                                                <div class="frm-action">
+                                                                    <div class="input-box tci-box">
+                                                                       <a href="#" class="btn-def btn2">Apply Coupon</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingTwo">
+                                                       <h3>Order Summary</h3>
+                                                       <form action="#" method="post">
+                                                       <div class="table-responsive">
+                                                            <table class="checkout-area table">
+                                                           <thead>
+                                                            <tr class="cart_item check-heading">
+                                                                <td>Product Image </td>
+                                                                <td class="ctg-type"> Product Name</td>
+                                                                <td class="cgt-des"> Total</td>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for items in order_items %}
+                                                                <tr class="cart_item check-item prd-name">
+                                                                    <td class="ctg-type"><img style="width:45px; height:45px;" src="{{items.product.product_image.url}}" alt=""></td>
+                                                                    <td class="ctg-type"> {{items.product.name}} × <span>{{items.quantity}}</span></td>
+                                                                    <td class="cgt-des">₹{{items.product.special_price|mul:items.quantity}}</td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                                <tr class="cart_item">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="cart_item">
+                                                                    <td></td>
+                                                                    <td class="ctg-type"> Subtotal</td>
+                                                                    <td class="cgt-des">₹{{sub_total}}</td>
+                                                                </tr>
+                                                                <tr class="cart_item">
+                                                                    <td></td>
+                                                                    <td class="ctg-type">Shipping</td>
+                                                                        <td class="cgt-des ship-opt">
+                                                                            <div class="shipp">
+                                                                                <label for="pay-toggle2"><span>₹{{delivery_charge}}</span></label>
+                                                                            </div>
+                                                                     </td>
+                                                                </tr>
+                                                                <tr class="cart_item">
+                                                                    <td></td>
+                                                                    <td class="ctg-type crt-total"> Total</td>
+                                                                    <td class="cgt-des prc-total">₹{{total}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                       </div>
+                                                    </form>
+                                                    </div>
+                                                        <div class="payment-section mt-20 clearfix">
+                                                            <div class="pay-toggle">
+                                                                   <div class="input-box mt-20">
+                                                                        <a class="btn-def btn2" href="{% url 'payment' %}">Continue</a>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!--cart-checkout-area end--> 
+    {% endblock content %}
+</body>
+
+</html>

@@ -1,0 +1,564 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SignUp New User</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'images/icons/favicon.ico' %}">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- All css files are included here. -->
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="{% static 'css/core.css' %}">
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="{% static 'css/shortcode/shortcodes.css' %}">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- User style -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">  
+    <link rel="stylesheet" href="{% static 'css/color/skin-default.css' %}">
+
+    
+    <!-- Modernizr JS -->
+    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->  
+
+    <!-- Body main wrapper start -->
+    <div class="wrapper home-one">
+       
+        <!-- Start of header area -->
+        <header class="header-area header-wrapper">
+            <div class="header-top-bar black-bg clearfix">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="login-register-area">
+                                <ul>
+                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="register.html">SignUp</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 hidden-xs">
+                            <div class="social-search-area text-center">
+                                <div class="social-icon socile-icon-style-2">
+                                    <ul>
+                                        <li><a href="#" title="facebook"><i class="fa fa-facebook"></i></a> </li>
+                                        <li><a href="#" title="twitter"><i class="fa fa-twitter"></i></a> </li>
+                                        <li> <a href="#" title="dribble"><i class="fa fa-dribbble"></i></a></li>
+                                        <li> <a href="#" title="behance"><i class="fa fa-behance"></i></a> </li>
+                                        <li> <a href="#" title="rss"><i class="fa fa-rss"></i></a> </li>
+                                    </ul>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="cart-currency-area login-register-area text-right">
+                                <ul>
+                                    <li><a href="my-account.html">My Profile</a></li>
+                                    <li>
+                                        <div class="header-currency">
+                                            <div class="cart-icon"> <a href="wishlist.html">Wish<i class="fa fa-heart-o"></i></a> <span>0</span> </div>
+                                        
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="header-cart">
+                                            <div class="cart-icon"> <a href="cart.html">Cart<i class="zmdi zmdi-shopping-cart"></i></a> <span>0</span> </div>
+                                            <div class="cart-content-wraper">
+                                                <div class="cart-single-wraper">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="{% static 'images/product/01.jpg' %}" alt=""></a>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <div class="cart-name"> <a href="#">Aenean Eu Tristique</a> </div>
+                                                        <div class="cart-price"> $70.00 </div>
+                                                        <div class="cart-qty"> Qty: <span>1</span> </div>
+                                                    </div>
+                                                    <div class="remove"> <a href="#"><i class="zmdi zmdi-close"></i></a> </div>
+                                                </div>
+                                                <div class="cart-single-wraper">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="{% static 'images/product/02.jpg' %}" alt=""></a>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <div class="cart-name"> <a href="#">Aenean Eu Tristique</a> </div>
+                                                        <div class="cart-price"> $70.00 </div>
+                                                        <div class="cart-qty"> Qty: <span>1</span> </div>
+                                                    </div>
+                                                    <div class="remove"> <a href="#"><i class="zmdi zmdi-close"></i></a> </div>
+                                                </div>
+                                                <div class="cart-subtotal"> Subtotal: <span>$200.00</span> </div>
+                                                <div class="cart-check-btn">
+                                                    <div class="view-cart"> <a class="btn-def" href="cart.html">View Cart</a> </div>
+                                                    <div class="check-btn"> <a class="btn-def" href="checkout.html">Checkout</a> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sticky-header"  class="header-middle-area">
+                <div class="container">
+                    <div class="full-width-mega-dropdown">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+                                <div class="logo ptb-20"><a href="index.html"> 
+                                    <img src="{% static 'images/logo/logo.png' %}" alt="main logo"></a>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-sm-10 hidden-xs">
+                                <nav id="primary-menu">
+                                    <ul class="main-menu">
+                                        <li class="current"><a class="active" href="index.html">Home</a></li>
+                                        <li class="mega-parent"><a href="index.html">Electroinics</a>
+                                            <div class="mega-menu-area mma-750">
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Mobiles</li>
+                                                    <li><a href="about-us.html" target="_blank">Apple</a></li>
+                                                    <li><a href="blog.html" target="_blank">Samsung</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Nokia</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Oppo</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Vivo</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Laptops</li>
+                                                    <li><a href="about-us.html" target="_blank">Apple</a></li>
+                                                    <li><a href="blog.html" target="_blank">Hp</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Lenovo</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Asus</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Dell</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Tablets</li>
+                                                    <li><a href="about-us.html" target="_blank">Apple iPads</a></li>
+                                                    <li><a href="blog.html" target="_blank">Samsung Tab</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Lenovo Tab</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Honour Tab</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Desktop Pcs</li>
+                                                    <li><a href="about-us.html" target="_blank">Apple Pcs</a></li>
+                                                    <li><a href="blog.html" target="_blank">Samsung Pcs</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Lenovo Pcs</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Hp Pcs</a></li>
+                                                </ul>
+                                                
+                                            </div>
+                                        </li>
+                                        <li class="mega-parent"><a href="index.html">Men</a>
+                                            <div class="mega-menu-area mma-750">
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Top wear</li>
+                                                    <li><a href="about-us.html" target="_blank">T-Shirt</a></li>
+                                                    <li><a href="blog.html" target="_blank">Shirt</a></li>
+                                                    <li class="menu-title uppercase">Bottom wear</li>
+                                                    <li><a href="single-blog.html" target="_blank">Jeans</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Traousres</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Cargos</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Footwear</li>
+                                                    <li><a href="about-us.html" target="_blank">Sports shoes</a></li>
+                                                    <li><a href="blog.html" target="_blank">Casual shoes</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Formal Shoes</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sneakers</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sandals</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Seasonal wear</li>
+                                                    <li><a href="about-us.html" target="_blank">Sweaters</a></li>
+                                                    <li><a href="blog.html" target="_blank">Jackets</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sweat Shirt</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Thermals</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Watches</li>
+                                                    <li><a href="about-us.html" target="_blank">Fastrack</a></li>
+                                                    <li><a href="blog.html" target="_blank">Titan</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sonata</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Casio</a></li>
+                                                </ul>
+                                                <li class="mega-parent"><a href="index.html">Women</a>
+                                            <div class="mega-menu-area mma-750">
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Western wear</li>
+                                                    <li><a href="about-us.html" target="_blank">Top,T-Shirt & Shirts</a></li>
+                                                    <li><a href="blog.html" target="_blank">Dresses & Skirts</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Jeans</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Traousres & Capris</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Footwear</li>
+                                                    <li><a href="about-us.html" target="_blank">Sports shoes</a></li>
+                                                    <li><a href="blog.html" target="_blank">Casual shoes</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sandals</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sleepers</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Seasonal wear</li>
+                                                    <li><a href="about-us.html" target="_blank">Sweaters</a></li>
+                                                    <li><a href="blog.html" target="_blank">Jackets</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sweat Shirt</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Coat & Blazers</a></li>
+                                                </ul>
+                                                <ul class="single-mega-item coloum-4">
+                                                    <li class="menu-title uppercase">Watches</li>
+                                                    <li><a href="about-us.html" target="_blank">Fastrack</a></li>
+                                                    <li><a href="blog.html" target="_blank">Titan</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Sonata</a></li>
+                                                    <li><a href="single-blog.html" target="_blank">Casio</a></li>
+                                                </ul>
+                                                
+                                            </div>
+                                        </li>
+                                        <li><a href="about-us.html">ABOUT</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="col-md-3 hidden-sm hidden-xs">
+                                <div class="search-box global-table">
+                                    <div class="global-row">
+                                        <div class="global-cell">
+                                            <form action="#">
+                                                <div class="input-box">
+                                                    <input class="single-input" placeholder="Search anything" type="text">
+                                                    <button class="src-btn"><i class="fa fa-search"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End of header area -->
+        
+        <!-- Account Area Start -->
+        <div class="account-area ptb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <form class="login-side" method="POST">
+                            {% csrf_token %}
+                            <div class="login-reg">
+                                <h3>SignUp</h3>
+                                <div class="input-box mb-20">
+                                    <label class="control-label">First name</label>
+                                    {{form.user.first_name}}
+                                </div>
+                                <div class="input-box mb-20">
+                                    <label class="control-label">Last name</label>
+                                    {{form.user.last_name}}
+                                </div>
+                                <div class="input-box mb-20">
+                                    <label class=>Gender</label>
+                                    {{form.gender}}        
+                                </div>
+                                <div class="input-box mb-20">
+                                    <label class="control-label">Username</label>
+                                    {{form.user.username}}
+                                </div>
+                                <div class="input-box">
+                                    <label class="control-label">Password</label>
+                                    {{form.password}}
+                                </div>
+                                <div class="input-box">
+                                    <label class="control-label">Confirm Password</label>
+                                    {{form.confirm_password}}
+                                </div>
+                                <div class="input-box mb-20">
+                                    <label class="control-label">Email</label>
+                                    {{form.email}}                                   
+                                </div>
+                                <div class="input-box mb-20">
+                                    <label class="control-label">Mobile Number</label>
+                                    {{form.mobile_number}}                                   
+                                </div>
+                                <div class="input-box mb-20">
+                                    <label class="control-label">Upload Image</label>
+                                    {{form.profile_pic}}                                   
+                                </div>
+
+                            </div>
+                            <div class="frm-action">
+                                <div class="input-box tci-box">
+                                    <input type="submit" value="SignUp" style="background-color: black; border: solid; color: white; font-size: 18px;">     
+                                </div>
+                                
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Account Area End -->
+
+         <!-- footer area start-->
+        <div class="footer-area ptb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <div class="single-footer contact-us">
+                            <div class="footer-title uppercase">
+                                <h5>Contact US</h5> </div>
+                            <ul>
+                                <li>
+                                    <div class="contact-icon"> <i class="zmdi zmdi-pin-drop"></i> </div>
+                                    <div class="contact-text">
+                                        <p><span>777/a  Seventh Street,</span> <span>Rampura, Bonosri</span></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="contact-icon"> <i class="zmdi zmdi-email-open"></i> </div>
+                                    <div class="contact-text">
+                                        <p><span><a href="#">company@gmail.com</a></span> <span><a href="#">admin@devitems.com</a></span></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="contact-icon"> <i class="zmdi zmdi-phone-paused"></i> </div>
+                                    <div class="contact-text">
+                                        <p><span>+11 (019) 25184203</span> <span>+11 (018) 50950555</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                        <div class="single-footer informaton-area">
+                            <div class="footer-title uppercase">
+                                <h5>Information</h5> </div>
+                            <div class="informatoin">
+                                <ul>
+                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="#">Order History</a></li>
+                                    <li><a href="#">Wishlist</a></li>
+                                    <li><a href="#">Returnes</a></li>
+                                    <li><a href="#">Private Policy</a></li>
+                                    <li><a href="#">Site Map</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 hidden-sm col-xs-12">
+                        <div class="single-footer instagrm-area">
+                            <div class="footer-title uppercase">
+                                <h5>InstaGram</h5> 
+                            </div>
+                            <div class="instagrm">
+                                <ul>
+                                    <li><a href="#"><img src="{% static 'images/gallery/01.jpg' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'images/gallery/02.jpg' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'images/gallery/03.jpg' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'images/gallery/04.jpg' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'images/gallery/05.jpg' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'images/gallery/06.jpg' %}" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-lg-offset-1 col-xs-12">
+                        <div class="single-footer newslatter-area">
+                            <div class="footer-title uppercase">
+                                <h5>Get Newsletters</h5> 
+                            </div>
+                            <div class="newslatter">
+                                <form action="#" method="post">
+                                    <div class="input-box pos-rltv">
+                                        <input placeholder="Type Your Email hear" type="text"> 
+                                        <a href="#">
+                                            <i class="zmdi zmdi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </form>
+                                <div class="social-icon socile-icon-style-3 mt-40">
+                                    <div class="footer-title uppercase">
+                                        <h5>Social Network</h5> 
+                                    </div>
+                                    <ul>
+                                        <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-google"></i></a></li>
+                                        <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--footer area end-->
+        
+        <!--footer bottom area start-->
+        <div class="footer-bottom global-table">
+            <div class="global-row">
+                <div class="global-cell">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="copyrigth"> Copyright @ 
+                                    <a href="https://freethemescloud.com/">Free themes Cloud</a> All right reserved 
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <ul class="payment-support text-right">
+                                    <li>
+                                        <a href="#"><img src="{% static 'images/icons/pay1.png' %}" alt="" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="{% static 'images/icons/pay2.png' %}" alt="" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="{% static 'images/icons/pay3.png' %}" alt="" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="{% static 'images/icons/pay4.png' %}" alt="" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="{% static 'images/icons/pay5.png' %}" alt="" /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--footer bottom area end-->
+        
+
+
+        <!-- QUICKVIEW PRODUCT -->
+        <div id="quickview-wrapper">
+            <!-- Modal -->
+            <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-product">
+                              <div class="product-images"> 
+                                   <!--modal tab start-->
+                                    <div class="portfolio-thumbnil-area-2">
+                                        <div class="tab-content active-portfolio-area-2">
+                                            <div role="tabpanel" class="tab-pane active" id="view1">
+                                                <div class="product-img">
+                                                    <a href="#"><img src="{% static 'images/product/01.jpg' %}" alt="Single portfolio" /></a>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="view2">
+                                                <div class="product-img">
+                                                    <a href="#"><img src="{% static 'images/product/02.jpg' %}" alt="Single portfolio" /></a>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="view3">
+                                                <div class="product-img">
+                                                    <a href="#"><img src="{% static 'images/product/03.jpg' %}" alt="Single portfolio" /></a>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="view4">
+                                                <div class="product-img">
+                                                    <a href="#"><img src="{% static 'images/product/04.jpg' %}" alt="Single portfolio" /></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-more-views-2">
+                                            <div class="thumbnail-carousel-modal-2" data-tabs="tabs">
+                                                <a href="#view1" aria-controls="view1" data-toggle="tab"><img src="{% static 'images/product/01.jpg' %}" alt="" /></a>
+                                                <a href="#view2" aria-controls="view2" data-toggle="tab"><img src="{% static 'images/product/02.jpg' %}" alt="" /></a>
+                                                <a href="#view3" aria-controls="view3" data-toggle="tab"><img src="{% static 'images/product/03.jpg' %}" alt="" /></a>
+                                                <a href="#view4" aria-controls="view4" data-toggle="tab"><img src="{% static 'images/product/04.jpg' %}" alt="" /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <!--modal tab end-->
+                                    <!-- .product-images -->
+                                    <div class="product-info">
+                                        <h1>Aenean eu tristique</h1>
+                                        <div class="price-box-3">
+                                            <div class="s-price-box"> <span class="new-price">$160.00</span> <span class="old-price">$190.00</span> </div>
+                                        </div> <a href="shop.html" class="see-all">See all features</a>
+                                        <div class="quick-add-to-cart">
+                                            <form method="post" class="cart">
+                                                <div class="numbers-row">
+                                                    <input type="number" id="french-hens" value="3" min="1"> </div>
+                                                <button class="single_add_to_cart_button" type="submit">Add to cart</button>
+                                            </form>
+                                        </div>
+                                        <div class="quick-desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero.Nam fringilla tristique auctor. </div>
+                                        <div class="social-sharing-modal">
+                                            <div class="widget widget_socialsharing_widget">
+                                                <h3 class="widget-title-modal">Share this product</h3>
+                                                <ul class="social-icons-modal">
+                                                    <li><a target="_blank" title="Facebook" href="#" class="facebook m-single-icon"><i class="fa fa-facebook"></i></a></li>
+                                                    <li><a target="_blank" title="Twitter" href="#" class="twitter m-single-icon"><i class="fa fa-twitter"></i></a></li>
+                                                    <li><a target="_blank" title="Pinterest" href="#" class="pinterest m-single-icon"><i class="fa fa-pinterest"></i></a></li>
+                                                    <li><a target="_blank" title="Google +" href="#" class="gplus m-single-icon"><i class="fa fa-google-plus"></i></a></li>
+                                                    <li><a target="_blank" title="LinkedIn" href="#" class="linkedin m-single-icon"><i class="fa fa-linkedin"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- .product-info -->
+                                </div>
+                                <!-- .modal-product -->
+                            </div>
+                            <!-- .modal-body -->
+                        </div>
+                        <!-- .modal-content -->
+                    </div>
+                    <!-- .modal-dialog -->
+                </div>
+                <!-- END Modal -->
+            </div>
+        <!-- END QUICKVIEW PRODUCT -->
+    </div> 
+    <!-- Body main wrapper end -->
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+    <!-- jquery latest version -->
+    <script src="{% static 'js/vendor/jquery-1.12.0.min.js' %}"></script>
+    <!-- Bootstrap framework js -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Slider js -->
+    <script src="{% static 'js/slider/jquery.nivo.slider.pack.js' %}"></script>
+    <script src="{% static 'js/slider/nivo-active.js' %}"></script>
+    <!-- counterUp-->
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <!-- All js plugins included in this file. -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

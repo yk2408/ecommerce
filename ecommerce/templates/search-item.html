@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Search List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+        <div class="new-arrival-area pt-70">
+            <div class="container">
+                <div class="row">
+                   <div class="col-xs-12 text-center">
+                       {% if not search_product %}
+                       <div class="heading-title heading-style pos-rltv mb-50 text-center">
+                           <h5 class="uppercase">PRODUCTS NOT FOUND</h5>
+                       </div>
+                       {% else %}
+                       <div class="heading-title heading-style pos-rltv mb-50 text-center">
+                           <h5 class="uppercase">PRODUCTS</h5>
+                       </div>
+                       {% endif %}
+                   </div>
+                   <div class="clearfix"></div>
+                    <div class="total-new-arrival new-arrival-slider-active carsoule-btn">
+                        {% for objects in search_product %}
+                        <div class="col-md-3">
+                            <!-- single product start-->
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <div class="product-label">
+                                        <div class="new">New </div>
+                                    </div>
+                                    <div class="single-prodcut-img  product-overlay pos-rltv">
+                                        <a href="{% url 'product_details' slug=objects.id  %}"> <img alt="" src="{{objects.product_image.url}}" class="primary-image"> <img alt="" src="{{objects.product_image.url}}" class="secondary-image"> </a>
+                                    </div>
+                                    <div class="product-icon socile-icon-tooltip text-center">
+                                        <ul>
+                                            <li><a url="{% url 'addcart' slug=objects.id %}" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                                            <li><a url="{% url 'addwish' slug=objects.id %}" data-tooltip="Wishlist" class="w-list" ><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
+                                            <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-text">
+                                    <div class="prodcut-name"> <a href="{% url 'product_details' slug=objects.id %}">{{objects.name}}({{objects.color}}, {{objects.ram}}|{{objects.rom}} )</a> </div>
+                                    <div class="prodcut-ratting-price">
+                                        <div class="prodcut-ratting">
+                                             <del>₹{{objects.price}}</del>
+                                            {% for i in off %}
+                                            {% if forloop.parentloop.counter == forloop.counter %}
+                                                <b style="color:orange">  {{i}}% off</b>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="prodcut-price">
+                                            <div class="new-price">₹{{objects.special_price}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- single product end-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <!--new arrival area end-->
+{% endblock content %}
+</body>
+
+</html>

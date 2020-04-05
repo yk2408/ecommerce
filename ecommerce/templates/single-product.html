@@ -1,0 +1,399 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Single Prodcuts</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+        <!--single-port folio-area are start-->
+        <div class="single-protfolio-area ptb-70">
+          <div class="container">
+              <div class="row">
+                    <div class="col-md-7 col-sm-12 col-xs-12">
+                       <div class="portfolio-thumbnil-area">
+                        <div class="product-more-views">
+                            <div class="tab_thumbnail" data-tabs="tabs">
+                                <div class="thumbnail-carousel">
+                                    <ul>
+                                       <li class="active">
+                                        <a href="#view11"  class="shadow-box" aria-controls="view11" data-toggle="tab"><img src="{{objects.product_image.url}}" alt="" /></a></li>
+                                       <li>
+                                        <a href="#view22" class="shadow-box" aria-controls="view22" data-toggle="tab"><img src="{{objects.product_image.url}}" alt="" /></a></li>
+                                       <li>
+                                        <a href="#view33" class="shadow-box" aria-controls="view33" data-toggle="tab"><img src="{{objects.product_image.url}}" alt="" /></a></li>
+                                       <li>
+                                        <a href="#view44" class="shadow-box" aria-controls="view44" data-toggle="tab"><img src="{{objects.product_image.url}}" alt="" /></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content active-portfolio-area pos-rltv">
+                           <div class="social-tag">
+                              <a href="#"><i class="zmdi zmdi-share"></i></a>
+                           </div>
+
+                            <div role="tabpanel" class="tab-pane active" id="view11">
+                                <div class="product-img">
+                                    <a class="fancybox" data-fancybox-group="group" href="{{objects.product_image.url}}"><img src="{{objects.product_image.url}}" alt="Single portfolio" /></a>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="view22">
+                                <div class="product-img">
+                                    <a class="fancybox" data-fancybox-group="group" href="{{objects.product_image.url}}"><img src="{{objects.product_image.url}}" alt="Single portfolio" /></a>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="view33">
+                                <div class="product-img">
+                                    <a class="fancybox" data-fancybox-group="group" href="{{objects.product_image.url}}"><img src="{{objects.product_image.url}}" alt="Single portfolio" /></a>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="view44">
+                                <div class="product-img">
+                                    <a class="fancybox" data-fancybox-group="group" href="{{objects.product_image.url}}"><img src="{{objects.product_image.url}}" alt="Single portfolio" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="single-product-description">
+                           <div class="sp-top-des">
+                                <h3>{{objects.name}}<span>({{objects.color}}, {{objects.ram}} | {{objects.rom}})</span></h3>
+                                <div class="prodcut-ratting-price">
+                                    <div class="prodcut-ratting"> 
+                                        <a href="#" tabindex="0"><i class="fa fa-star-o"></i></a> 
+                                        <a href="#" tabindex="0"><i class="fa fa-star-o"></i></a> 
+                                        <a href="#" tabindex="0"><i class="fa fa-star-o"></i></a> 
+                                        <a href="#" tabindex="0"><i class="fa fa-star-o"></i></a> 
+                                        <a href="#" tabindex="0"><i class="fa fa-star-o"></i></a>
+                                        &nbsp;
+                                        <a href="#review-form" aria-controls="reviews-form" role="tab" data-toggle="tab">Add Your Review</a>
+                                    </div>
+                                    <div class="prodcut-price">
+                                        <div class="new-price">₹{{objects.special_price}}</div>
+                                        <div class="old-price"> <del>₹{{objects.price}}</del>
+                                            <b style="color:orange">{{off}}% off</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="sp-des">
+                                {% for details in sort_descriptions %}
+                                <li>{{details}}</li>
+                                {% endfor %}
+                            </div>
+                            <div class="sp-bottom-des">
+                            <div class="single-product-option">
+                                <div class="sort product-type">
+                                    <label>Color: </label>
+                                    <select id="input-sort-color">
+                                        <option value="#">Black</option>
+                                        <option value="#" selected>{{objects.color}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="quantity-area">
+                                <label>Qty :</label>
+                                <div class="cart-quantity">
+                                    <form action="#" method="POST" id="myform">
+                                        <div class="product-qty">
+                                            <div class="cart-quantity">
+                                                <div class="cart-plus-minus">
+                                                    <div class="dec qtybutton">-</div>
+                                                        <input type="text" value="01" name="qtybutton" class="cart-plus-minus-box">
+                                                    <div class="inc qtybutton">+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="social-icon socile-icon-style-1">
+                                <ul>
+                                    <li><a href="javascript:void(0)" url="{% url 'addcart' slug=objects.id %}" data-tooltip="Add To Cart" class="add-cart add-cart-text" data-placement="left" tabindex="0">Add To Cart<i class="fa fa-cart-plus"></i></a></li>
+                                    <li><a href="javascript:void(0)" url="{% url 'addwish' slug=objects.id %}" data-tooltip="Wishlist" class="w-list" tabindex="0"><i class="fa fa-heart-o"></i></a></li>
+                                    <li><a href="#" data-tooltip="Compare" class="cpare" tabindex="0"><i class="fa fa-refresh"></i></a></li>
+                                    <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal" tabindex="0"><i class="fa fa-eye"></i></a></li>
+                                </ul>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>  
+        </div>
+        </div>
+        <!--single-protfolio-area are start-->
+        
+        <!--descripton-area start -->
+        <div class="descripton-area">
+            <div class="container">
+                <div class="row">
+                    <div class="product-area tab-cars-style">
+                        <div class="title-tab-product-category">
+                            <div class="col-md-12 text-center">
+                                <ul class="nav mb-40 heading-style-2" role="tablist">
+                                    <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                                    <li role="presentation" ><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Review</a></li>
+                                    <li role="presentation"><a href="#specialoffer" aria-controls="specialoffer" role="tab" data-toggle="tab">Tags</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12">
+                            <div class="content-tab-product-category">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fix fade in active" id="description">
+                                    <div class="review-wraper">
+                                        <h6>General</h6>
+                                    <ul>
+                                        {% for objects in full_descriptions %}
+                                        {% if objects %}
+                                            {% if not forloop.counter|divisibleby:2 %}
+                                                <li>
+                                                    <span class="title"><strong>{{objects}}: </strong></span>
+                                            {% else %}
+                                                    <span class="desc">{{objects}}</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fix fade in" id="reviews">
+                                    <div class="review-wraper">
+                                        <form method="POST">
+                                        {% csrf_token %}
+                                        {% if user_form.non_field_errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ user_form.non_field_errors }}</strong>
+                                        </div>
+                                        {% endif %}
+<!--                                        <input type="text" name="username" value="{{user_form.username.value}}" autofocus disabled>-->
+                                </form>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim <br> veniam, quis nostrud exercitation.</p>
+                                       <h5>SIZE & FIT</h5>
+                                       <ul>
+                                           <li>Model wears: Style Photoliya U2980</li>
+                                           <li>Model's height: 185”66</li>
+                                       </ul>
+                                        <h5>ABOUT ME</h5>
+                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                                       <h5>Overview</h5>
+                                       <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fix fade in" id="specialoffer">
+                                    <ul class="tag-filter">
+                                        <li><a href="#">Fashion</a></li>
+                                        <li><a href="#">Women</a></li>
+                                        <li><a href="#">Winter</a></li>
+                                        <li><a href="#">Street Style</a></li>
+                                        <li><a href="#">Style</a></li>
+                                        <li><a href="#">Shop</a></li>
+                                        <li><a href="#">Collection</a></li>
+                                        <li><a href="#">Spring 2016</a></li>
+                                        <li><a href="#">Street Style</a></li>
+                                        <li><a href="#">Style</a></li>
+                                        <li><a href="#">Shop</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!--descripton-area end--> 
+        
+        <!--new arrival area start-->
+        <div class="new-arrival-area ptb-70">
+            <div class="container">
+                <div class="row">
+                   <div class="col-xs-12 text-center">
+                       <div class="heading-title heading-style pos-rltv mb-50 text-center">
+                           <h5 class="uppercase">Related Product</h5>
+                       </div>
+                   </div>
+                   <div class="clearfix"></div>
+                    <div class="total-new-arrival new-arrival-slider-active carsoule-btn">                           
+                        <div class="col-md-3">
+                            <!-- single product start-->
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <div class="product-label">
+                                        <div class="new">New</div>
+                                    </div>
+                                    <div class="single-prodcut-img  product-overlay pos-rltv">
+                                        <a href="single-product.html"> <img alt="" src="{{objects.product_image.url}}" class="primary-image"> <img alt="" src="{% static 'images/product/02.jpg' %}" class="secondary-image"> </a>
+                                    </div>
+                                    <div class="product-icon socile-icon-tooltip text-center">
+                                        <ul>
+                                            <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                                            <li><a href="#" data-tooltip="Wishlist" class="w-list"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
+                                            <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-text">
+                                    <div class="prodcut-name"> <a href="single-product.html">Quisque fringilla</a> </div>
+                                    <div class="prodcut-ratting-price">
+                                        <div class="prodcut-price">
+                                            <div class="new-price"> $220 </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single product end-->
+                        </div>                          
+                        <div class="col-md-3">
+                            <!-- single product start-->
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <div class="single-prodcut-img  product-overlay pos-rltv">
+                                        <a href="single-product.html"> <img alt="" src="{% static 'images/product/03.jpg' %}" class="primary-image"> <img alt="" src="{% static 'images/product/04.jpg' %}" class="secondary-image"> </a>
+                                    </div>
+                                    <div class="product-icon socile-icon-tooltip text-center">
+                                        <ul>
+                                            <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                                            <li><a href="#" data-tooltip="Wishlist" class="w-list"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
+                                            <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-text">
+                                    <div class="prodcut-name"> <a href="single-product.html">Quisque fringilla</a> </div>
+                                    <div class="prodcut-ratting-price">
+                                        <div class="prodcut-price">
+                                            <div class="new-price"> $220 </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single product end-->
+                        </div>                          
+                        <div class="col-md-3">
+                            <!-- single product start-->
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <div class="product-label">
+                                        <div class="new">Sale</div>
+                                    </div>
+                                    <div class="single-prodcut-img  product-overlay pos-rltv">
+                                        <a href="single-product.html"> <img alt="" src="{% static 'images/product/02.jpg' %}" class="primary-image"> <img alt="" src="{% static 'images/product/03.jpg' %}" class="secondary-image"> </a>
+                                    </div>
+                                    <div class="product-icon socile-icon-tooltip text-center">
+                                        <ul>
+                                            <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                                            <li><a href="#" data-tooltip="Wishlist" class="w-list"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
+                                            <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-text">
+                                    <div class="prodcut-name"> <a href="single-product.html">Quisque fringilla</a> </div>
+                                    <div class="prodcut-ratting-price">
+                                        <div class="prodcut-ratting"> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star-o"></i></a> 
+                                        </div>
+                                        <div class="prodcut-price">
+                                            <div class="new-price"> $220 </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single product end-->
+                        </div>                          
+                        <div class="col-md-3">
+                            <!-- single product start-->
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <div class="single-prodcut-img  product-overlay pos-rltv">
+                                        <a href="single-product.html"> <img alt="" src="{% static 'images/product/04.jpg' %}" class="primary-image"> <img alt="" src="{% static 'images/product/03.jpg' %}" class="secondary-image"> </a>
+                                    </div>
+                                    <div class="product-icon socile-icon-tooltip text-center">
+                                        <ul>
+                                            <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                                            <li><a href="#" data-tooltip="Wishlist" class="w-list"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
+                                            <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-text">
+                                    <div class="prodcut-name"> <a href="single-product.html">Quisque fringilla</a> </div>
+                                    <div class="prodcut-ratting-price">
+                                        <div class="prodcut-price">
+                                            <div class="new-price"> $220 </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single product end-->
+                        </div>                          
+                        <div class="col-md-3">
+                            <!-- single product start-->
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <div class="single-prodcut-img  product-overlay pos-rltv">
+                                        <a href="single-product.html"> <img alt="" src="{% static 'images/product/05.jpg' %}" class="primary-image"> <img alt="" src="{% static 'images/product/06.jpg' %}" class="secondary-image"> </a>
+                                    </div>
+                                    <div class="product-icon socile-icon-tooltip text-center">
+                                        <ul>
+                                            <li><a href="#" data-tooltip="Add To Cart" class="add-cart" data-placement="left"><i class="fa fa-cart-plus"></i></a></li>
+                                            <li><a href="#" data-tooltip="Wishlist" class="w-list"><i class="fa fa-heart-o"></i></a></li>
+                                            <li><a href="#" data-tooltip="Compare" class="cpare"><i class="fa fa-refresh"></i></a></li>
+                                            <li><a href="#" data-tooltip="Quick View" class="q-view" data-toggle="modal" data-target=".modal"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-text">
+                                    <div class="prodcut-name"> <a href="single-product.html">Quisque fringilla</a> </div>
+                                    <div class="prodcut-ratting-price">
+                                        <div class="prodcut-ratting"> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star"></i></a> 
+                                            <a href="#"><i class="fa fa-star-o"></i></a> </div>
+                                        <div class="prodcut-price">
+                                            <div class="new-price"> $220 </div>
+                                            <div class="old-price"> <del>$250</del> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- single product end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--new arrival area end-->
+        
+{% endblock content %}
+
+        <!--footer area start-->
+
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>WishList</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- wish list are start-->
+        <div class="wishlist-area ptb-70">
+            <div class="container">
+                <div class="row">
+                    {% if wish_item %}
+                    <div class="col-md-12">
+                       <h4>My Wishlist On Clothing</h4>
+                        <div class="cart-page-area">
+                            <form method="post">
+                                <div class="table-responsive">
+                                    <table class="shop_table-2 cart table">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-thumbnail ">Image</th>
+                                                <th class="product-name ">Product Name</th>
+                                                <th class="product-price ">Unit Price</th>
+                                                <th class="product-subtotal ">Stock</th>
+                                                <th class="product-quantity">Add Item</th>
+                                                <th class="product-remove">Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% csrf_token %}
+                                        {% for objects in wish_item %}
+                                            <tr class="cart_item">
+                                                <td class="item-img">
+                                                    <a href="#"><img src="{{objects.product.product_image.url}}" alt=""> </a>
+                                                </td>
+                                                <td class="item-title"> <a href="#">{{objects.product.name}} </a></td>
+                                                <td class="item-price">₹{{objects.product.special_price}}</td>
+                                                <td class="item-qty">
+                                                    In Stock
+                                                </td>
+                                                <td class="total-price"><a class="btn-def btn2 add-cart" href="javascript:void(0)" url="{% url 'addcart' slug=objects.product.id %}" >Add To Cart</a></span></td>
+                                                <td class="remove-item"><a url="{% url 'remove-wish' slug=objects.product.id %}" href="javascript:void(0)" class="rmv" ><i class="fa fa-trash-o"></i></a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div>
+                        <div>
+                            <span>
+                                <img src="{% static 'images/icons/cart-logo.png' %}" alt="Cart" class="center">
+                            </span>
+                            <span>
+                                <p style="color:red; text-align:center; font-size:20px; "><b>Your Wishlist is Empty</b></p>
+                            </span>
+                            <div>
+                                <span>
+                                    <p style="text-align:center; font-size:15px;">You have no items in your wishlist. Start adding!</p>
+                                </span>
+                            </div>
+                            <span><p style="text-align:center;"><a href="{% url 'homepage' %}" style="color:blue;" class="btn-def">Add Now</a></p></span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- wishlist are end-->
+{% endblock content %}
+</body>
+
+</html>

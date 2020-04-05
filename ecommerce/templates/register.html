@@ -1,0 +1,100 @@
+<html class="no-js" lang="en">
+
+<head>
+    <title>Register Page</title>
+</head>
+<body>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- End of header area -->
+        <!-- Account Area Start -->
+        <br/><div>
+            
+        </div>
+        <div class="col-xs-8 text-center">
+            <div class="heading-title heading-style pos-rltv mb-50 text-center">
+                <h5 class="uppercase">SignUp</h5>
+            </div>
+        </div>    
+        <div class="account-area ptb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <form class="login-side" method="POST">
+                            {% csrf_token %}
+                            {% if user_form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ user_form.non_field_errors }}</strong>
+                                </div>
+                                {% endif %}
+                            <div class="fieldWrapper">
+                                {{ user_form.first_name.errors }}
+                                <label for="{{ user_form.first_name.id_for_label }}">First name</label>
+                                {{user_form.first_name}}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ user_form.last_name.errors }}
+                                <label for="{{ user_form.last_name.id_for_label }}">Last name</label>
+                                {{ user_form.last_name }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ user_form.username.errors }}
+                                <label for="{{ user_form.username.id_for_label }}">Username</label>
+                                {{ user_form.username }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ user_form.password.errors }}
+                                <label for="{{ user_form.password.id_for_label }}">Password</label>
+                                {{ user_form.password }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ user_form.confirm_password.errors }}
+                                <label for="{{ user_form.confirm_password.id_for_label }}">Confirm password</label>
+                                {{ user_form.confirm_password }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ user_form.email.errors }}
+                                <label for="{{ user_form.email.id_for_label }}">email</label>
+                                {{ user_form.email }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ profile_form.gender.errors }}
+                                <label for="{{ profile_form.gender.id_for_label }}">Gender</label>
+                                {{ profile_form.gender }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {% if profile_form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ profile_form.non_field_errors }}</strong>
+                                </div>
+                                {% endif %}
+                                {% if profile_form.mobile_number.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ profile_form.mobile_number.errors }}</strong>
+                                </div>
+                                {% endif %}
+                                <label for="{{ profile_form.mobile_number.id_for_label }}">Mobile Number</label>
+                                {{ profile_form.mobile_number }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {% if profile_form.profile_pic.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ profile_form.profile.errors }}</strong>
+                                </div>
+                                {% endif %}
+                                <label for="{{ profile_form.profile_pic.id_for_label }}">Profile Pic</label>
+                                {{ profile_form.profile_pic }}
+                            </div>
+                            <input type="submit" value="SignUp" style="color: white; background-color: black;">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Account Area End -->   
+    {% endblock content%}
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- End of header area -->
+        <br/>
+        <br/>
+        <div class="col-xs-8 text-center">
+            <div class="heading-title heading-style pos-rltv mb-50 text-center">
+                <h5 class="uppercase">Login</h5>
+            </div>
+        </div>
+        <!-- Account Area Start -->
+        <div class="account-area ptb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ form.non_field_errors }}</strong>
+                                </div>
+                            {% endif %}
+                            <div class="fieldWrapper">
+                                {{ form.username.errors }}
+                                <label for="{{ form.username.id_for_label }}">Username</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ form.password.errors }}
+                                <label for="{{ form.password.id_for_label }}">Password</label>
+                                {{ form.password }}
+                            </div>
+                            <br/>
+                            <div class="fieldWrapper">
+                                <input type="submit" value="Login" style="color: white; background-color: black;">
+                            </div>
+
+
+                        </form>
+                                <span>
+                             <input class="remr" type="checkbox"> Remember me 
+                         </span>
+                                <a href="#" class="forgotten forg">Forgotten Password</a>
+                            </br>
+                                <a href="{% url 'register' %}" class="forgotten forg">New User ? Create an account</a>
+                            </div>
+                        <div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Account Area End -->
+{% endblock content %}
+
+</body>
+
+</html>

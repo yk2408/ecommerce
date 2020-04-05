@@ -1,0 +1,211 @@
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Checkout Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script>
+        $(document).ready(function()
+      {
+        var radioValue = $("input[name='ship-address']:checked").val();
+          setAddressSession(radioValue);
+
+          $(".check-address").click(function()
+          {
+            var d_address_id = $(this).attr('value');
+            setAddressSession(d_address_id);
+
+          });
+
+          function setAddressSession(d_address_id)
+          {
+            var deliver_data ={'add_id': d_address_id,
+                              };
+            $.ajax(
+              {
+                  data: deliver_data,
+                  type:"GET",
+                  url: "/cart/checkout/",
+                  success: function(result)
+                  {
+                  }
+              });
+          };
+      });
+    </script>
+</head>
+
+<body>
+
+    {% extends "base.html" %}
+    {% load static %}
+    {% block content %}
+        <!--cart-checkout-area start -->
+        <div class="cart-checkout-area  pt-30">
+            <div class="container">
+                <div class="row">
+                    <div class="product-area">
+                        <div class="title-tab-product-category">
+                            <div class="col-md-12 text-center pb-60">
+                                <ul class="nav heading-style-3" role="tablist">
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'mycart' %}" style="width:250px;"><span>01</span> Shopping cart</a></li>
+                                    <li role="presentation" class="active shadow-box"><a href="#checkout" aria-controls="checkout" role="tab" data-toggle="tab" style="width:250px;"><span>02</span>Checkout</a></li>
+                                    <li role="presentation" class="shadow-box"><a href="{% url 'order-item' %}" style="width:250px;"><span>03</span> complete-order</a></li>
+                                    <li role="presentation" class="shadow-box"><a style="width:250px;"><span>04</span>Payments</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12">
+                            <div class="content-tab-product-category pb-70">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane  fade in active" id="checkout">
+                                    <!-- Checkout are start-->
+                                    <div class="checkout-area">
+                                        <div class="">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="coupne-customer-area mb50">
+                                                      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                      <div class="panel panel-checkout">
+                                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                                         {% if user.is_authenticated %}
+                                                          <h4 class="panel-title">
+                                                          <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
+                                                           LOGIN
+                                                          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                               {{user.username}}
+                                                          </a>
+                                                          </h4>
+                                                            {% endif %}
+                                                        </div>
+                                                      </div>
+                                                      <div class="panel panel-checkout" id="add-de">
+                                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                                          <h4 class="panel-title" >DELIVERY ADDRESS</h4>
+                                                          {% for objects in address %}
+                                                            <span>
+                                                              {% if forloop.counter == 1 %}
+                                                              <input type="radio" class="check-address" url="{% url 'checkout' %}" style="height:15px; width:15px;" checked name="ship-address" readonly="" value="{{objects.id}}">
+                                                              {% else %}
+                                                              <input type="radio" class="check-address" url="{% url 'checkout' %}" style="height:15px; width:15px;" name="ship-address" readonly="" value="{{objects.id}}">
+                                                              {% endif %}
+                                                            </span>
+                                                            &nbsp;
+                                                          <span>
+                                                              <b style="font-size:13px; background-color:black; color:White;">{{objects.address_type}}</b>
+                                                              &nbsp; <i><strong>{{objects.first_name}} {{objects.last_name}}   &nbsp; {{objects.mobile_no}}</strong></i>
+                                                              <p>{{objects.address}}, {{objects.city}}, {{objects.state}}, {{objects.country}}-<strong>{{objects.zip_code}}</strong></p>
+                                                          </span>
+
+                                                              {% endfor %}
+                                                            <div class="billing-details">
+                                                                <div class="right-side">
+                                                                    <div class="ship-acc clearfix">
+                                                                    <div class="ship-toggle pb20">
+                                                                        <input type="checkbox" id="ship-toggle">
+                                                                        <strong for="ship-toggle" >Add New Address</strong>
+                                                                    </div>
+                                                                    <div class="ship-acc-body">
+                                                                        <form method="post" action="{% url 'add_address' %}" id="add-form" >
+                                                                           <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                {% csrf_token %}
+                                                                                {% if add_address_form.non_field_errors %}
+                                                                                <div class="alert alert-danger">
+                                                                                    <strong>{{ add_address_form.non_field_errors }}</strong>
+                                                                                </div>
+                                                                                {% endif %}
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="first_name">First Name <em>*</em></label>
+                                                                                    {{add_address_form.first_name}}
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                               <div class="input-box mb-20">
+                                                                                    <label for="last_name">Last Name<em>*</em></label>
+                                                                                    {{add_address_form.last_name}}
+                                                                               </div>
+                                                                           </div>
+                                                                           <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="mobile_number">Mobile Number<em>*</em></label>
+                                                                                    {{add_address_form.mobile_no}}
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="country">Country <em>*</em></label>
+                                                                                    {{add_address_form.country}}
+                                                                            </div>
+                                                                           </div>
+                                                                           <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="city">City/District/Town <em>*</em></label>
+                                                                                    {{add_address_form.city}}
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="state">State/Divison <em>*</em></label>
+                                                                                    {{add_address_form.state}}
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="zip_code">Pin Code/Zip Code<em>*</em></label>
+                                                                                    {{add_address_form.zip_code}}
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="address">Address <em>*</em></label>
+                                                                                    {{add_address_form.address}}
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <div class="input-box mb-20">
+                                                                                    <label for="address_type">Address Type <em>*</em></label>
+                                                                                    <span class="info">{{add_address_form.address_type}}</span>
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-xs-12 text-left">
+                                                                               <input type="submit" value="Save" style="background-color:black; color:White; width:200px;">
+                                                                               <a href="{% url 'manage-address' %}" style="color:White; background-color:black; padding: 14px; font-size: 14px; padding-left:48px; padding-right:48px;">Cancel</a>
+                                                                           </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                          <a class="btn-def btn2" style="width:200px; height:45px; padding:5px; text-align: center;s" href="{% url 'order-item' %}">Delivery Here</a>
+                                                      </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Checkout are end-->
+
+                                </div>
+
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--cart-checkout-area end-->
+
+    {% endblock content %}
+
+</body>
+
+</html>
