@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Order Item Details</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+        <div class="cart-checkout-area  pt-30" style="background-color:lightgrey;">
+            <div class="container">
+                <div class="row">
+                    <div class="product-area">
+                        <div class="title-tab-product-category">
+                            <h3 style="text-align: center;">Item Details</h3>
+                        </div>
+                        <br/>
+            <div class="table-responsive mb-20" style="background-color:White;">
+                <div style="padding:12px;">
+                    <span style="font-size:16px;"><strong>Delivery Address</strong></span>
+                </div>
+                <div style="padding:12px;">
+                    <div>
+                        <span style="font-size:16px;">
+                            <strong> {{order_item_details.order.address.first_name}} {{order_item_details.order.address.last_name}}</strong>
+                        </span>
+                        <div>
+                            <span>
+                                {{order_item_details.order.address.address}},
+                                {{order_item_details.order.address.city}},
+                                {{order_item_details.order.address.state}},
+                                {{order_item_details.order.address.country}},
+                                <br/>
+                                {{order_item_details.order.address.city}}-{{order_item_details.order.address.zip_code}},
+                                {{order_item_details.order.address.state}}
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                <strong>Phone Number-{{order_item_details.order.address.mobile_no}}</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if not order_item_details.status == "Cancelled" %}
+            <div class="table-responsive mb-20" style="background-color:White;">
+                <div style="padding:12px;">
+                    <span style="font-size:16px;"><strong>Order Status</strong></span>
+                </div>
+                <div style="padding:12px; text-align:center;" width="100%" id="menu1">
+                        <!-- Progress Tracker v2 -->
+                        <ol class="progtrckr {{order_item_details.status}}" data-progtrckr-steps="9">
+                            <li class="progtrckr-todo">Order Processing</li>
+                             <li class="progtrckr-todo">Packed</li>
+                             <li class="progtrckr-todo">Shipped</li>
+                             <li class="progtrckr-todo">Delivered</li>
+                        </ol>
+                </div>
+            </div>
+            {% endif %}
+            <div class="table-responsive mb-20" style="background-color:White;">
+                <div style="padding:12px;">
+                    <div class="oneline">
+                        <span>
+                            <a href=""><img src="{{order_item_details.product.product_image.url}}" height="130px", alt=""> </a>
+                        </span>
+                    </div>
+
+                    <div class="oneline">
+                        <span style="padding:10px; font-size:16px;">
+                            <strong>
+                            {{order_item_details.product.name}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="padding:10px; font-size:16px;">
+                            <b style="text-align:center;">
+                            ₹{{order_item_details.price}}
+                            </b>
+                        </span>
+                    </div>
+                    <div class="oneline">
+
+                    </div>
+                    {% if order_item_details.status == "Delivered" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:green">
+                                {{order_item_details.status}} On {{order_item_details.delivered_date|date:"D d M Y"}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Your Item has been delivered
+                        </span>
+                    </div>
+                    {% elif order_item_details.status == "Cancelled" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:red">
+                                {{order_item_details.status}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Shipment is Cancelled
+                        </span>
+                    </div>
+                    {% elif order_item_details.status == "Shipped" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:green">
+                                {{order_item_details.status}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Your Item has been Shipped
+                        </span>
+                    </div>
+                    {% elif order_item_details.status == "Transaction Failed" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:red">
+                                {{order_item_details.status}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                &nbsp;&nbsp;Transaction is Failed
+                        </span>
+                    </div>
+                    {% elif order_item_details.status == "Ordered" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:green">
+                                {{order_item_details.status}} Successfully
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Your Item has been Ordered.
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if other_order_items %}
+            <div class="table-responsive mb-20" style="background-color:White; margin:0px;">
+                <div style="padding:12px;">
+                    <span style="font-size:16px;"><strong>Other Items In This Order</strong></span>
+                </div>
+            </div>
+            {% for items in other_order_items %}
+            <div class="table-responsive mb-20" style="background-color:White; margin:0px;">
+                <div style="padding:12px;">
+                    <div class="oneline">
+                        <span>
+                            <a href=""><img src="{{items.product.product_image.url}}" height="130px", alt=""> </a>
+                        </span>
+                    </div>
+
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong>
+                            {{items.product.name}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                            <b style="text-align:center;">
+                            ₹{{items.price}}
+                            </b>
+                        </span>
+                    </div>
+                    <div class="oneline">
+
+                    </div>
+                    {% if items.status == "Delivered" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:green">
+                                {{items.status}} On {{items.delivered_date|date:"D d M Y"}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Your Item has been delivered
+                        </span>
+                    </div>
+                    {% elif items.status == "Shipped" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:green">
+                                {{items.status}}.
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Your Item has been Shipped
+                        </span>
+                    </div>
+                    {% elif items.status == "Cancelled" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:red">
+                                {{items.status}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Shipment is Cancelled
+                        </span>
+                    </div>
+                    {% elif items.status == "Transaction Failed" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:red">
+                                {{items.status}}
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Transaction is Failed
+                        </span>
+                    </div>
+                    {% elif items.status == "Ordered" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:green">
+                                {{items.status}} Successfully
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Your Item has been Ordered.
+                        </span>
+                    </div>
+                    {% elif items.status == "Packed" %}
+                    <div class="oneline">
+                        <span style="font-size:16px;">
+                            <strong style="color:green">
+                               Item {{items.status}} Successfully
+                            </strong>
+                        </span>
+                        <br/>
+                        <span style="font-size:16px;">
+                                Your Item has been Packed.
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
+        <!-- footer area start-->
+        <!-- footer area start-->
+
+
+
+
+
+</body>
+
+</html>

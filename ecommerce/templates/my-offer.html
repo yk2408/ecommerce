@@ -1,0 +1,64 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>My Offers </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .offers {
+                    display: inline-block;
+                    padding:15px;
+                    margin:10px;
+                    width: 40%;
+                    border-style: groove;;
+                }
+    </style>
+</head>
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+        <!-- End of header area -->
+
+
+        <!--service idea area are start -->
+        <div class="idea-area  ptb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="idea-tab-menu">
+                            <ul class="nav idea-tab" role="tablist">
+                                <li role="presentation"><a href="{% url 'myaccount' %}" >Personal Info</a></li>
+                                <li role="presentation" ><a href="#creativity" id="profile" aria-controls="creativity" role="tab" data-toggle="tab">Manage Address</a></li>
+                                <li role="presentation"><a href="{% url 'my-order' %}">My Order</a></li>
+                                <li role="presentation" class="active"><a href="{% url 'my-offer' %}">My Offers</a></li>
+                                <li role="presentation"><a href="#markenting" aria-controls="markenting" role="tab" data-toggle="tab">Payment Method</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <div class="idea-tab-content">
+                            {% for codes in offers %}
+                            <div class="offers">
+                                <span style="background-color:lightgrey; padding:5px;">{{codes.code}}</span><br/>
+                                <strong>{{codes.code_title}}</strong><br/>
+                                {{codes.code_description}}
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--service idea area are end -->
+    {% endblock content %}
+        <!-- footer area start-->
+
+</body>
+
+</html>

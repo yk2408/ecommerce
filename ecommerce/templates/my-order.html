@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Order Items</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- End of header area -->
+
+        <!--cart-checkout-area start -->
+        <div class="cart-checkout-area  pt-30">
+            <div class="container">
+                <div class="row">
+                    <div class="product-area">
+                        <div class="title-tab-product-category">
+                            <h3 style="text-align: center;">Order Items</h3>
+                        </div>
+                        <br/>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12">
+                            <div class="content-tab-product-category pb-70">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="cart">
+                                    <!-- cart are start-->
+                                    <div class="cart-page-area">
+                                       <form method="post" action="{% url 'mycart' %}">
+                                                   <div class="table-responsive mb-20">
+                                                    <table class="shop_table-2 cart table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="product-thumbnail ">Image</th>
+                                                                <th class="product-name ">Product Name</th>
+                                                                <th class="product-quantity">Status</th>
+                                                                <th class="product-quantity">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% csrf_token %}
+                                                            {% for items in order_list %}
+                                                                <tr class="cart_item">
+                                                                        <td class="item-img">
+                                                                            <a href="{% url 'checkout' %}"><img src="{{items.product.product_image.url}}" alt=""> </a>
+                                                                        </td>
+                                                                        <td class="item-title"> {{items.product.name}}</td>
+                                                                        {% if items.status == "Delivered" %}
+                                                                        <td class="item-price">
+                                                                            <div >
+                                                                                <strong style="color:green; font-size:15px;">{{items.status}} On {{items.delivered_date|date:"D d M Y"}} </strong>
+                                                                                <div>Your Item has been delivered</div>
+                                                                            </div>
+                                                                        </td>
+                                                                        {% elif items.status == "Ordered" %}
+                                                                        <td class="item-price">
+                                                                            <div><strong style="font-size:15px;">Processing...</strong></div>
+                                                                        </td>
+                                                                        {% elif items.status == "Packed" %}
+                                                                        <td class="item-price">
+                                                                            <div><strong style="font-size:15px;">Processing...</strong></div>
+                                                                        </td>
+                                                                        {% elif items.status == "Shipped" %}
+                                                                        <td class="item-price">
+                                                                            <div>
+                                                                                <strong style="color: green; font-size:15px;">Shipped</strong>
+                                                                                <div>Your Item has been Shipped</div>
+                                                                            </div>
+                                                                        </td>
+                                                                        {% elif items.status == "Cancelled" %}
+                                                                        <td class="item-price">
+                                                                            <div>
+                                                                                <strong style="color:red; font-size:15px;">{{items.status}}</strong>
+                                                                                <div>Shipment is Cancelled</div>
+                                                                            </div>
+                                                                        </td>
+                                                                        {% elif items.status == "Transaction Failed" %}
+                                                                        <td class="item-price">
+                                                                            <div>
+                                                                                <strong style="color:red; font-size:15px;">{{items.status}}</strong>
+                                                                                <div>Transaction is Failed</div>
+                                                                            </div>
+                                                                        </td>
+                                                                        {% endif %}
+                                                                        <td class="item-price"><a href="{% url 'my-order-details' item_id=items.id order_id=items.order.id %}" style="color:blue"> View Order Details</a></td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+
+                                                </form>
+                                    </div>
+                                    <!-- cart are end-->
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
+        <!-- footer area start-->
+        <!-- footer area start-->
+
+
+
+
+
+</body>
+
+</html>
