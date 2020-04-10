@@ -1,0 +1,6 @@
+.env
+.env.example
+djangoenv/
+venv
+env
+*.pyc
