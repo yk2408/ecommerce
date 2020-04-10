@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
+from categoryandproduct.models import Product
 
 # Create your models here.
 
 GENDER_CHOICES = [
-    ('M', 'Male'),
-    ('F', 'Female')
-]
+                    ('M', 'Male'),
+                    ('F', 'Female')
+                 ]
 
 
 class UserProfile(models.Model):
@@ -15,9 +17,6 @@ class UserProfile(models.Model):
     mobile_number = models.CharField(max_length=10)
     profile_pic = models.ImageField(upload_to='profile', null=True, blank=True)
 
-    def __str__(self):
-        return str(self.user.username)
-
 
 class SubscribeUser(models.Model):
     email = models.EmailField()
@@ -25,3 +24,5 @@ class SubscribeUser(models.Model):
 
     def __str__(self):
         return str(self.email)
+
+

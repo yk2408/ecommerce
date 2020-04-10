@@ -5,9 +5,9 @@ from django.shortcuts import render, redirect
 
 from categoryandproduct.models import ElectronicProduct
 
-from order.models import ManageAddress
+from orders.models import AddressManage
 
-from order.forms import AddAddressForm
+from orders.forms import AddAddressForm
 from .forms import CartItemForm, WishListForm
 from .models import CartItem, WishList
 
@@ -144,8 +144,11 @@ def remove_wish(request, slug):
 def checkout(request):
     username = request.user.username
     add_address_form = AddAddressForm(request.POST or None)
-    address_qs = ManageAddress.objects.filter(user__username=username)
-    if request.method == "GET" and request.is_ajax():
+    address_qs = AddressManage.objects.filter(user__username=username)
+    if not address_qs:
+        address_qs = ""
+
+    elif request.method == "GET" and request.is_ajax():
         address = request.GET['add_id']
         request.session['address_id'] = address
         delivery_id = request.session['address_id']

@@ -31,22 +31,22 @@
                 <div style="padding:12px;">
                     <div>
                         <span style="font-size:16px;">
-                            <strong> {{order_item_details.order.address.first_name}} {{order_item_details.order.address.last_name}}</strong>
+                            <strong> {{order_item_details.order.shipping_address.first_name}} {{order_item_details.order.shipping_address.last_name}}</strong>
                         </span>
                         <div>
                             <span>
-                                {{order_item_details.order.address.address}},
-                                {{order_item_details.order.address.city}},
-                                {{order_item_details.order.address.state}},
-                                {{order_item_details.order.address.country}},
+                                {{order_item_details.order.shipping_address.address}},
+                                {{order_item_details.order.shipping_address.city}},
+                                {{order_item_details.order.shipping_address.state}},
+                                {{order_item_details.order.shipping_address.country}},
                                 <br/>
-                                {{order_item_details.order.address.city}}-{{order_item_details.order.address.zip_code}},
-                                {{order_item_details.order.address.state}}
+                                {{order_item_details.order.shipping_address.city}}-{{order_item_details.order.shipping_address.zip_code}},
+                                {{order_item_details.order.shipping_address.state}}
                             </span>
                         </div>
                         <div>
                             <span>
-                                <strong>Phone Number-{{order_item_details.order.address.mobile_no}}</strong>
+                                <strong>Phone Number-{{order_item_details.order.shipping_address.mobile_no}}</strong>
                             </span>
                         </div>
                     </div>

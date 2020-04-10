@@ -39,23 +39,22 @@
                                 {{ form.password.errors }}
                                 <label for="{{ form.password.id_for_label }}">Password</label>
                                 {{ form.password }}
+                            <br/>
+                            <span>
+                             {{form.remember_me}} Remember me
+                            </span>
+                                <a href="{% url 'forgot-password' %}" class="forgotten forg">Forgot Password</a>
+
                             </div>
                             <br/>
                             <div class="fieldWrapper">
                                 <input type="submit" value="Login" style="color: white; background-color: black;">
                             </div>
-
-
+                            <a href="{% url 'register' %}" style="text-align:center;" class="forgotten forg">New User ? Create an account</a>
                         </form>
-                                <span>
-                             <input class="remr" type="checkbox"> Remember me 
-                         </span>
-                                <a href="#" class="forgotten forg">Forgotten Password</a>
-                            </br>
-                                <a href="{% url 'register' %}" class="forgotten forg">New User ? Create an account</a>
-                            </div>
+
                         <div>
-                            
+
                         </div>
                     </div>
                 </div>

@@ -72,7 +72,7 @@
                                                       <div class="panel-heading" role="tab" id="headingTwo">
                                                           <h4 class="panel-title">
                                                           <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
-                                                           Order Summary
+                                                           Order Items
                                                           </h4>
                                                           {% for items in order_items %}
                                                           <span>
@@ -86,9 +86,10 @@
                                                         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                                             data-key="{{ key }}"
                                                             data-description="Payment Gateway Charge"
-                                                            currency="inr"
                                                             data-amount="{{total|mul:100}}"
-                                                            data-locale="auto">
+                                                            data-locale="auto"
+                                                            data-currency="inr"
+                                                        >
                                                         </script>
                                                   </form>
                                               </div>

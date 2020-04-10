@@ -29,7 +29,7 @@ $(document).ready(function()
                         }
                         else
                         {
-                            var html = "<span class='success' style='color: green;'>Thank you for Subscribing! Please Check your Email to Confirm the Subscription</span>";
+                            var html = "<span class='success' style='color: green;'>"+ response.msg +"</span>";
                             $(".response-msg").html(html);
                         }
 
@@ -175,7 +175,8 @@ $(document).ready(function()
             return false;
           });
           $('#add-form').submit(function() 
-          { 
+          {
+            alert($(this).attr('action'));
             $.ajax(
             { 
                 data: $(this).serialize(), // get the form data
@@ -218,8 +219,67 @@ $(document).ready(function()
             if(address_id == address)
             $("#add-de").hide();
               
-          });  
-          
+          });
+
+          $('#coupon-form').submit(function()
+          {
+            console.log($(this).attr('action'));
+            $.ajax(
+            {
+                data: $(this).serialize(), // get the form data
+                type: $(this).attr('method'), // GET or POST
+                url: $(this).attr('action'), // the file to call
+                success: function(response)
+                {
+                   if(response.data == "success")
+                   {
+                      window.location.reload();
+                   }
+                   if(response.data == "exist")
+                   {
+                      alert('Coupon Already Used');
+                   }
+                   if(response.data == "does not exist")
+                   {
+                      alert('Coupon Does not Exists');
+                   }
+                }
+            });
+            return false;
+          });
+
+          if ($("ol").hasClass("Ordered"))
+    	{
+    		$("ol.progtrckr li:first-child").removeClass("progtrckr-todo");
+    		$("ol.progtrckr li:first-child").addClass("progtrckr-done");
+    	}
+
+		if ($("ol").hasClass("Packed"))
+    	{
+    		$("ol.progtrckr li:first-child").removeClass("progtrckr-todo");
+    		$("ol.progtrckr li:first-child").addClass("progtrckr-done");
+    		$("ol.progtrckr li:nth-child(2)").removeClass("progtrckr-todo");
+    		$("ol.progtrckr li:nth-child(2)").addClass("progtrckr-done");
+    	}
+
+    	if ($("ol").hasClass("Shipped"))
+    	{
+    		$("ol.progtrckr li:first-child").removeClass("progtrckr-todo");
+    		$("ol.progtrckr li:first-child").addClass("progtrckr-done");
+    		$("ol.progtrckr li:nth-child(2)").removeClass("progtrckr-todo");
+    		$("ol.progtrckr li:nth-child(2)").addClass("progtrckr-done");
+    		$("ol.progtrckr li:nth-child(3)").removeClass("progtrckr-todo");
+    		$("ol.progtrckr li:nth-child(3)").addClass("progtrckr-done");
+    	}
+
+    	if ($("ol").hasClass("Delivered"))
+    	{
+    		$("li").removeClass("progtrckr-todo");
+    		$("li").addClass("progtrckr-done");
+
+    	}
+
+
           var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 
           function csrfSafeMethod(method)

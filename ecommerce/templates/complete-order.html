@@ -68,6 +68,19 @@
                                                           {% endfor %}
                                                       </div>
                                                   </div>
+                                                  {% if offer_discount %}
+                                                  <div class="panel panel-checkout">
+                                                      <div class="panel-heading" role="tab" id="headingThree">
+                                                          <h4 class="panel-title">
+                                                              <img src="{% static 'images/icons/right-icon.webp' %}" alt="">
+                                                              Coupon applied :-
+                                                            <a class="collapsed" aria-expanded="false" aria-controls="collapseThree">
+                                                                {{coupon_code}}
+                                                            </a>
+                                                          </h4>
+                                                      </div>
+                                                  </div>
+                                                  {% else %}
                                                   <div class="panel panel-checkout">
                                                       <div class="panel-heading" role="tab" id="headingThree">
                                                           <h4 class="panel-title">
@@ -79,6 +92,8 @@
                                                           </h4>
                                                       </div>
                                                       <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                          <form method="post" action="{% url 'apply-coupon' %}" id="coupon-form">
+                                                          {% csrf_token %}
                                                           <div class="panel-body coupon-body">
                                                             <div class="first-last-area">
                                                                 <div class="input-box mtb-20">
@@ -86,13 +101,15 @@
                                                                 </div>
                                                                 <div class="frm-action">
                                                                     <div class="input-box tci-box">
-                                                                       <a href="#" class="btn-def btn2">Apply Coupon</a>
+                                                                       <input class="btn-def btn2" style="width:150px; background-color:black; color:White; " type="submit" value="Apply Coupon">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                           </div>
+                                                          </form>
                                                       </div>
                                                   </div>
+                                                  {% endif %}
                                                   <div class="panel panel-checkout">
                                                       <div class="panel-heading" role="tab" id="headingTwo">
                                                        <h3>Order Summary</h3>
@@ -124,6 +141,17 @@
                                                                     <td class="ctg-type"> Subtotal</td>
                                                                     <td class="cgt-des">₹{{sub_total}}</td>
                                                                 </tr>
+                                                                {% if offer_discount %}
+                                                                <tr class="cart_item">
+                                                                    <td></td>
+                                                                    <td class="ctg-type">Offer Discount</td>
+                                                                        <td class="cgt-des ship-opt">
+                                                                            <div class="shipp">
+                                                                                <label for="pay-toggle2"><span>-₹{{offer_discount}}</span></label>
+                                                                            </div>
+                                                                     </td>
+                                                                </tr>
+                                                                {% endif %}
                                                                 <tr class="cart_item">
                                                                     <td></td>
                                                                     <td class="ctg-type">Shipping</td>

@@ -43,93 +43,82 @@
                                 <div role="tabpanel" class="tab-pane fade in active" id="cart">
                                     <!-- cart are start-->
                                     <div class="cart-page-area">
-                                       <form method="post" action="{% url 'mycart' %}">
-                                                   <div class="table-responsive mb-20">
-                                                    <table class="shop_table-2 cart table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="product-thumbnail ">Image</th>
-                                                                <th class="product-name ">Product Name</th>
-                                                                <th class="product-price ">Unit Price</th>
-                                                                <th class="product-quantity">Quantity</th>
-                                                                <th class="product-subtotal ">Total</th>
-                                                                <th class="product-remove">Remove</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        {% csrf_token %}
-                                                        {% for cart_objects in qs %}
-                                                            <tr class="cart_item">
-                                                                <td class="item-img">
-                                                                    <a href="#"><img src="{{cart_objects.product.product_image.url}}" alt=""> </a>
-                                                                </td>
-                                                                <td class="item-title"> <a href="#">{{cart_objects.product.name}}</a></td>
-                                                                <td class="item-price">₹{{cart_objects.product.special_price}} </td>
-                                                                <td class="item-qty">
-                                                                    <div class="cart-quantity">
-                                                                        <div class="product-qty">
-                                                                            <div class="cart-quantity">
-                                                                                <div class="cart-plus-minus">
-                                                                                    <div class="dec qtybutton" url="{% url 'mycart'  %}" name="{{cart_objects.product.name}}" >-</div>
-                                                                                    <input value="{{cart_objects.quantity}}" name="{{cart_objects.product.name}}" class="cart-plus-minus-box" type="text">
-                                                                                    <div class="inc qtybutton" id="qtybutton"  url="{% url 'mycart' %}" name="{{cart_objects.product.name}}">+</div>
-                                                                                </div>
+                                        <form method="post" action="{% url 'mycart' %}">
+                                           <div class="table-responsive mb-20">
+                                                <table class="shop_table-2 cart table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="product-thumbnail ">Image</th>
+                                                            <th class="product-name ">Product Name</th>
+                                                            <th class="product-price ">Unit Price</th>
+                                                            <th class="product-quantity">Quantity</th>
+                                                            <th class="product-subtotal ">Total</th>
+                                                            <th class="product-remove">Remove</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% csrf_token %}
+                                                    {% for cart_objects in qs %}
+                                                        <tr class="cart_item">
+                                                            <td class="item-img">
+                                                                <a href="#"><img src="{{cart_objects.product.product_image.url}}" alt=""> </a>
+                                                            </td>
+                                                            <td class="item-title"> <a href="#">{{cart_objects.product.name}}</a></td>
+                                                            <td class="item-price">₹{{cart_objects.product.special_price}} </td>
+                                                            <td class="item-qty">
+                                                                <div class="cart-quantity">
+                                                                    <div class="product-qty">
+                                                                        <div class="cart-quantity">
+                                                                            <div class="cart-plus-minus">
+                                                                                <div class="dec qtybutton" url="{% url 'mycart'  %}" name="{{cart_objects.product.name}}" >-</div>
+                                                                                <input value="{{cart_objects.quantity}}" name="{{cart_objects.product.name}}" class="cart-plus-minus-box" type="text">
+                                                                                <div class="inc qtybutton" id="qtybutton"  url="{% url 'mycart' %}" name="{{cart_objects.product.name}}">+</div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </td>
-                                                                <td class="total-price">
-                                                                    <strong>₹{{cart_objects.product.special_price|mul:cart_objects.quantity}}</strong>
-                                                                </td>
-                                                                <td class="remove-item">
-                                                                    <a href="javascript:void(0)"  url="{% url 'remove-cart' slug=cart_objects.product.id %}" class="rmv" >
-                                                                        <i class="fa fa-trash-o"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                            {% endfor %}
-
-                                                        </tbody>
-                                                    </table>
-                                                    </div>
-                                                    <div class="cart-bottom-area">
-                                                        <div class="row">
-                                                            <div class="col-md-8 col-sm-7 col-xs-12">
-                                                                <div class="update-coupne-area">
-                                                                    <div class="update-continue-btn text-right pb-20">
-                                                                    </div>
-                                                                    <div class="coupn-area">
-                                                                        <div class="catagory-title cat-tit-5 mb-20">
-                                                                            <h3>Coupon</h3>
-                                                                            <p>Enter your coupon code if you have one.</p>
-                                                                        </div>
-                                                                            <div class="input-box input-box-2 mb-20">
-                                                                                <input type="text" placeholder="Coupn" class="info" name="subject">
-                                                                            </div>
-                                                                            <a href="#" class="btn-def btn2">Apply Coupon</a>
-                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-sm-5 col-xs-12">
-                                                                <div class="cart-total-area">
-                                                                    <div class="catagory-title cat-tit-5 mb-20 text-right">
-                                                                            <h3>Cart Totals</h3>
-                                                                     </div>
-                                                                     <div class="sub-shipping">
-                                                                         <p>Subtotal <span>₹{{sub_total}}</span></p>
-                                                                         <p>Shipping <span>₹{{delivery_charge}}</span></p>
-                                                                     </div>
-                                                                     <div class="process-cart-total">
-                                                                         <p>Total <span>₹{{total}}</span></p>
-                                                                     </div>
-                                                                     <div class="process-checkout-btn text-right">
-                                                                         <a class="btn-def btn2" href="{% url 'checkout' %}">Process To Checkout</a>
-                                                                     </div>
-                                                                </div>
-                                                            </div>
+                                                            </td>
+                                                            <td class="total-price">
+                                                                <strong>₹{{cart_objects.product.special_price|mul:cart_objects.quantity}}</strong>
+                                                            </td>
+                                                            <td class="remove-item">
+                                                                <a href="javascript:void(0)"  url="{% url 'remove-cart' slug=cart_objects.product.id %}" class="rmv" >
+                                                                    <i class="fa fa-trash-o"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                           </div>
+                                        </form>
+                                        <form method="post" action="{% url 'apply-coupon' %}" id="coupon-form">
+                                            {% csrf_token %}
+                                            <div class="cart-bottom-area">
+                                                <div class="row">
+                                                    <div class="col-md-8 col-sm-7 col-xs-12">
+                                                        <div class="cart-total-area">
+                                                            <div class="catagory-title cat-tit-5 mb-20 text-right">
+                                                                    <h3 style="text-align:center">Cart Totals</h3>
+                                                             </div>
+                                                             <div class="sub-shipping">
+                                                                 <p>Subtotal <span>₹{{sub_total}}</span></p>
+                                                                 <p>Shipping <span>₹{{delivery_charge}}</span></p>
+                                                             </div>
+                                                             <div class="process-cart-total">
+                                                                 <p>Total <span>₹{{total}}</span></p>
+                                                             </div>
+                                                             <div class="process-checkout-btn text-right">
+                                                                 <a class="btn-def btn2" href="{% url 'checkout' %}">Process To Checkout</a>
+                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
+                                                    <div class="col-md-4 col-sm-5 col-xs-12">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <!-- cart are end-->
                                 </div>

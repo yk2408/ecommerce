@@ -6,10 +6,16 @@ from categoryandproduct.models import ElectronicProduct
 from datetime import datetime
 # Create your models here.
 
-ADDRESS_CHOICES = (
+ADDRESS_TYPES = (
     ('Home', 'home'),
     ('Work', 'work'),
 )
+
+ADDRESS_CHOICES = (
+    ('B', 'Billing'),
+    ('S', 'Shipping'),
+)
+
 
 ORDER_STATUS = (
     ('Delivered', 'delivered'),
@@ -48,13 +54,30 @@ class AddressManage(models.Model):
     address = models.TextField(max_length=255)
     city = models.CharField(max_length=20)
     state = models.CharField(choices=state_choices, max_length=20)
-    address_type = models.CharField(max_length=10, choices=ADDRESS_CHOICES)
+    address_type = models.CharField(max_length=10, choices=ADDRESS_TYPES)
 
     def __str__(self):
         return str(self.pk) + self.user.username
 
     class Meta:
         verbose_name_plural = 'Addresses'
+
+
+class OrderAddress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    mobile_no = models.CharField(max_length=12)
+    country = CountryField(multiple=False)
+    zip_code = models.CharField(max_length=100)
+    address = models.TextField(max_length=255)
+    city = models.CharField(max_length=20)
+    state = models.CharField(choices=state_choices, max_length=20)
+    address_type = models.CharField(max_length=10, choices=ADDRESS_TYPES)
+
+    def __str__(self):
+        return str(self.pk) + self.user.username
 
 
 class PaymentDetails(models.Model):
@@ -85,8 +108,10 @@ class OrdersDetail(models.Model):
                              on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=ORDER_STATUS, default="Processing", null=True, max_length=20, blank=True)
-    address = models.ForeignKey(
-        'AddressManage', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+    shipping_address = models.ForeignKey(
+        'OrderAddress', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+    billing_address = models.ForeignKey(
+        'OrderAddress', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
     payment = models.ForeignKey(
         'PaymentDetails', on_delete=models.SET_NULL, blank=True, null=True)
     coupon = models.ForeignKey(

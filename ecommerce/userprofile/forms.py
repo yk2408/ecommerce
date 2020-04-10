@@ -63,6 +63,7 @@ class RegisterForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter Username', 'class': 'info'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password', 'class': 'info'}))
+    remember_me = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'class': 'remr'}))
 
     def clean(self):
         username = self.cleaned_data.get('username')
@@ -112,6 +113,39 @@ class UpdateForm(forms.ModelForm):
                 return super(UpdateForm, self).clean()
 
         return super(UpdateForm, self).clean()
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter your email', 'class': 'info'}))
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            user = None
+
+        if user is None:
+            raise forms.ValidationError('Please enter the email address associated with your account')
+
+        return super(ForgotPasswordForm, self).clean()
+
+
+class ResetPasswordForm(forms.Form):
+    new_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password', 'class': 'info'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Confirm Password', 'class': 'info'}))
+
+    def clean(self):
+        new_password = self.cleaned_data.get('new_password')
+        print(new_password)
+        confirm_password = self.cleaned_data.get('confirm_password')
+        if len(new_password) < 6:
+            raise forms.ValidationError('Password should be at least 6 character')
+        elif new_password != confirm_password:
+            raise forms.ValidationError('Confirm Password not matched')
+
+        return super(ResetPasswordForm, self).clean()
 
 
 class SubscribeForm(forms.ModelForm):

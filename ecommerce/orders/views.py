@@ -2,9 +2,9 @@ import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from cart.models import CartItem
-from .models import AddressManage, OrderItem, OrdersDetail, PaymentDetails, CouponCode
+from .models import AddressManage, OrderItem, OrdersDetail, PaymentDetails, CouponCode, OrderAddress
 
 # Create your views here.
 
@@ -30,7 +30,10 @@ def apply_coupon(request):
 
 
 def order_details(request):
-    delivery_id = request.session['address_id']
+    try:
+        delivery_id = request.session['address_id']
+    except KeyError:
+        return redirect(f"/cart/mycart/")
     username = request.user.username
     order_items = CartItem.objects.filter(user__username=username)
     address_qs = AddressManage.objects.filter(id=delivery_id)
@@ -62,7 +65,10 @@ def order_details(request):
 
 
 def payment_page(request):
-    delivery_id = request.session['address_id']
+    try:
+        delivery_id = request.session['address_id']
+    except KeyError:
+        return redirect(f"/cart/mycart/")
     username = request.user.username
     order_items = CartItem.objects.filter(user__username=username)
 
@@ -78,28 +84,41 @@ def payment_page(request):
 
 
 def send_payment(request):
-    total = int(request.session['total']) * 100
-    charge = stripe.Charge.create(
-        amount=total,
-        currency='inr',
-        description='Payment Gateway Charge',
-        source=request.POST['stripeToken']
-    )
-    print('Charge----------->', charge)
-    stripe_id = charge['balance_transaction']
-    amount = charge['amount'] / 100
-    print('Amount------->', amount)
-    username = request.user.username
-    user_info = User.objects.get(username=username)
-    delivery_id = request.session['address_id']
-    address_qs = AddressManage.objects.get(id=delivery_id)
-    print(address_qs)
+    try:
+        total = int(request.session['total']) * 100
+        charge = stripe.Charge.create(
+            amount=total,
+            currency='inr',
+            description='Payment Gateway Charge',
+            source=request.POST['stripeToken']
+        )
+        stripe_id = charge['balance_transaction']
+        amount = charge['amount'] / 100
+        username = request.user.username
+        user_info = User.objects.get(username=username)
+        delivery_id = request.session['address_id']
+    except KeyError:
+        return redirect(f"/cart/mycart/")
+
+    address_instance = AddressManage.objects.get(id=delivery_id)
+    order_address = OrderAddress()
+    order_address.user = address_instance.user
+    order_address.first_name = address_instance.first_name
+    order_address.last_name = address_instance.last_name
+    order_address.mobile_no = address_instance.mobile_no
+    order_address.country = address_instance.country
+    order_address.zip_code = address_instance.zip_code
+    order_address.address = address_instance.address
+    order_address.city = address_instance.city
+    order_address.state = address_instance.state
+    order_address.address_type = address_instance.address_type
+    order_address.save()
     stripe_payment = PaymentDetails.objects.create(stripe_charge_id=stripe_id, user=user_info, amount=amount)
-    print('Stripe_payment------->', stripe_payment)
     payment_details = PaymentDetails.objects.get(stripe_charge_id=stripe_id)
     order_summary = OrdersDetail()
     order_summary.user = user_info
-    order_summary.address = address_qs
+    order_summary.billing_address = order_address
+    order_summary.shipping_address = order_address
     order_summary.payment = payment_details
     try:
         coupon = CouponCode.objects.get(code=request.session['coupon_code'])
@@ -108,7 +127,6 @@ def send_payment(request):
     except:
         order_summary.save()
 
-    print('order_summary---------------->', order_summary)
     order_items = CartItem.objects.filter(user__username=username)
     for items in order_items:
         product = items.product
@@ -116,6 +134,9 @@ def send_payment(request):
         price = items.price
         order = order_summary
         order_item = OrderItem.objects.create(product=product, quantity=quantity, price=price,
-                                                 order=order)
-    del request.session['coupon_code']
+                                                     order=order)
+    try:
+        del request.session['coupon_code']
+    except KeyError:
+        coupon_code = None
     return render(request, 'payment-success.html')

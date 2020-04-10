@@ -11,16 +11,23 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from datetime import timedelta
+import environ
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = environ.Path(__file__) - 2
 
+env = environ.Env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '6yk^)ressul&kh@95*!l#+3x8i9hs&v97*z(u$r&v2^ss-27gl'
+
+env.read_env('.env')  # Read .env file
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,7 +52,7 @@ INSTALLED_APPS = [
                     'cart',
                     'userprofile',
                     'categoryandproduct',
-                    'order',
+                    'orders',
                     'mathfilters',
                 ]
 
@@ -86,14 +93,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ecommerce',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306'
-    }
+    'default': env.db('DATABASE_URL')
 }
 
 
@@ -138,8 +138,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MAILCHIMP_API_KEY = '1a687fdc7bd6cb6e714727c693aa12af-us4'
-MAILCHIMP_DATA_CENTER = 'us4'
-MAILCHIMP_EMAIL_LIST_ID = '894a16c3c1'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_t2C5H3X1PZGuxeXQ9n1uurk0005KSi0UXV'
-STRIPE_SECRET_KEY = 'sk_test_cZgIFEsMIPg3YcAkMZ9gVLAT008fDHhX9T'
+MAILCHIMP_API_KEY = env('MAILCHIMP_API_KEY')
+MAILCHIMP_DATA_CENTER = env('MAILCHIMP_DATA_CENTER')
+MAILCHIMP_EMAIL_LIST_ID = env('MAILCHIMP_EMAIL_LIST_ID')
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
