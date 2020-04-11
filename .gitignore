@@ -1,6 +1,6 @@
-.env
+ecommerce/.env
 .env.example
 djangoenv/
 venv
-env
+*.env
 *.pyc
