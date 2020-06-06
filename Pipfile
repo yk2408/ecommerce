@@ -22,7 +22,7 @@ stripe = "==2.42.0"
 urllib3 = "==1.25.7"
 environ = "*"
 django-environ = "==0.4.5"
-Django = "==2.2.7"
+Django = "==2.2.13"
 
 [requires]
 python_version = "3.7"
